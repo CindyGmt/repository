@@ -2,6 +2,15 @@
 module.exports = {
   // 选项
   devServer: {
-    proxy: 'http://localhost:8080'
+    open: true,
+    proxy:{
+      '/api':{
+        target:'',
+        changeOrigin: true,
+        pathRewrite:{
+          '^/api':''
+        }
+      }
+    }
   }
 }

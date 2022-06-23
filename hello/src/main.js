@@ -5,6 +5,7 @@ import VueI18n from 'vue-i18n'
 import router from './router/router'
 import common from './utils/common'
 import App from './App.vue'
+import store from './store/index'
 
 Vue.prototype.common = common
 Vue.use(ElementUI)
@@ -23,5 +24,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   i18n,
+  store,
   render: h => h(App),
 }).$mount('#app')

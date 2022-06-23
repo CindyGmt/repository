@@ -1,43 +1,116 @@
 <template>
     <div class="login-box">
-        <div :class="['change',ifPc? 'toPC' : 'toErWeiMa']"></div>
-        <div class="login-switch-tab">
-            <span :class="['login-tab-item',ifShow ? 'item-active' : '']" @click="change(true)">密码登录</span>
-            <span :class="['login-tab-item',!ifShow ? 'item-active' : '']" @click="change(false)">短信登录</span>
+        <div :class="['change',ifPc? 'toErWeiMa' : 'toPC']" @click="changePage"></div>
+        <div v-show='ifPc'>
+            <div class="login-switch-tab">
+                <span :class="['login-tab-item',ifShow ? 'item-active' : '']" @click="change(true)">密码登录</span>
+                <span :class="['login-tab-item',!ifShow ? 'item-active' : '']" @click="change(false)">短信登录</span>
+            </div>
+            <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" :show-message='true'>
+                <div class="passInfo" v-show="ifShow">
+                    <el-form-item prop="user">
+                        <el-input class="fm-field" type="text" v-model="loginForm.user" placeholder="帐号名/邮箱/手机号">
+                            <i slot="prefix" class="el-input__icon el-icon-user-my"></i>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item prop="passWord">
+                        <el-input class="fm-field" type="password" v-model="loginForm.passWord" placeholder="请输入登录密码">
+                            <i slot="prefix" class="el-input__icon el-icon-pass-my"></i>
+                        </el-input>
+                    </el-form-item>
+                </div>
+                <div class="textInfo" v-show="!ifShow">
+                    <el-form-item prop="telphone">
+                        <el-input class="fm-field" type="tel" v-model="loginForm.telphone" placeholder="请输入手机号">
+                            <i slot="prefix" class="el-input__icon el-icon-tel-my"></i>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item prop="verificationCode">
+                        <el-input class="fm-field" type="text" v-model="loginForm.verificationCode" placeholder="请输入验证码">
+                            <i slot="prefix" class="el-input__icon el-icon-check-my"></i>
+                            <i slot="suffix" class="el-input__icon el-icon-check-send" @click="getVerificationCode">获取验证码</i>
+                        </el-input>
+                    </el-form-item>
+                </div>
+                <el-form-item class="btn">
+                    <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+                </el-form-item>
+            </el-form>
+            <div class="otherMethods">
+                <span class="toWeb">微博登录</span>
+                <span class="alipay">支付宝登录</span>
+            </div>
+            <div class="forget">
+                <span v-show="ifShow">忘记密码</span>
+                <span v-show="ifShow">忘记帐号名</span>
+                <span>免费注册</span>
+            </div>
         </div>
-        <div class="passInfo" v-show="ifShow">
-            <el-input class="fm-field" type="text" v-model="input" placeholder="帐号名/邮箱/手机号">
-                <i slot="prefix" class="el-input__icon el-icon-user-my"></i>
-            </el-input>
-            <el-input class="fm-field" type="password" v-model="input" placeholder="请输入登录密码">
-                <i slot="prefix" class="el-input__icon el-icon-pass-my"></i>
-            </el-input>
-        </div>
-        <div class="textInfo" v-show="!ifShow">
-            <el-input class="fm-field" type="tel" v-model="input" placeholder="请输入手机号">
-                <i slot="prefix" class="el-input__icon el-icon-tel-my"></i>
-            </el-input>
-            <el-input class="fm-field" type="text" v-model="input" placeholder="请输入验证码">
-                <i slot="prefix" class="el-input__icon el-icon-check-my"></i>
-            </el-input>
-        </div>
-        <el-button type="primary">登录</el-button>
-        <div class="otherMethods">
-            <span class="toWeb">微博登录</span>
-            <span class="alipay">支付宝登录</span>
-        </div>
-        <div class="forget">
-            <span v-show="ifShow" class="forgetPassword">忘记密码</span>
-            <span v-show="ifShow" class="forgetUsername">忘记帐号名</span>
-            <span class="registered">免费注册</span>
+        <div v-show='!ifPc'>
+             <div class="login-switch-tab">
+                <span class='login-tab-item'>手机扫码，安全登录</span>
+            </div>
+            <div class="qrcode-img"></div>
+            <div class="other">
+                <span @click="changePage">密码登录</span>
+                <span>免费注册</span>
+            </div>
         </div>
     </div>
 </template>
 <script>
+    import {login} from '../request/api'
     export default{
         data(){
+            let validateUser = (rule, value, callback) => {
+                if (!value && this.ifShow) {
+                    return callback(new Error('请输入账号名'));
+                }else{
+                    callback();
+                }
+            };
+            let validatePassWord = (rule, value, callback) => {
+                if (!value && this.ifShow) {
+                    return callback(new Error('请输入密码'));
+                }else{
+                    callback();
+                }
+            };
+            let checkTelphone = (rule, value, callback) => {
+                if (!value && !this.ifShow) {
+                    return callback(new Error('请输入手机号'));
+                }else{
+                    callback();
+                }
+            };
+            let checkCode = (rule, value, callback) => {
+                if (!value && !this.ifShow) {
+                    return callback(new Error('请输入验证码'));
+                }else{
+                    callback();
+                }
+            };
             return {
-                input:'',
+                loginForm:{
+                    user:'',
+                    passWord:'',
+                    telphone:'',
+                    verificationCode:''
+                },
+                rules: {
+                    user: [
+                        { validator: validateUser, trigger: 'blur' }
+                    ],
+                    passWord: [
+                        { validator: validatePassWord, trigger: 'blur' }
+                    ],
+                    telphone: [
+                        { validator: checkTelphone, trigger: 'blur' }
+                    ],
+                    verificationCode: [
+                        { validator: checkCode, trigger: 'blur' }
+                    ]
+                },
                 ifPc:true,
                 ifShow:true
             }
@@ -47,6 +120,37 @@
         methods:{
             change(flag){
                 this.ifShow = flag
+            },
+            changePage(){
+                this.ifPc = !this.ifPc
+                this.ifShow = true
+            },
+            getVerificationCode(){
+
+            },
+            submitForm(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        let params
+                        if(this.ifShow){
+                            params = {
+                                user:this.loginForm.user,
+                                passWord:this.loginForm.passWord,
+                            }
+                        }else{
+                            params = {
+                                telphone:this.loginForm.telphone,
+                                verificationCode:this.loginForm.verificationCode,
+                            }
+                        }
+                        login(params).then(res => {
+                            console.log(res)
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
             }
         }
     }
@@ -81,6 +185,7 @@
         position: absolute;
         right: 0;
         top: 0;
+        cursor: pointer;
     }
     .toPC{
         background: url("../assets/pc.png") center no-repeat;
@@ -107,8 +212,11 @@
     .item-active{
         border-bottom: 2px solid #3c3c3c;
     }
-    .fm-field{
+    .el-form-item{
         margin-bottom: 20px;
+    }
+    .btn{
+        margin: 0;
     }
     .fm-field /deep/.el-input__inner{
         padding-left: 50px;
@@ -141,6 +249,13 @@
         background: url("../assets/checkCode.png") center no-repeat;
         background-color: #ccc;
     }
+    .el-icon-check-send{
+        white-space: nowrap;
+        font-size: 12px;
+        cursor: pointer;
+        width: auto;
+        padding: 0 10px;
+    }
     .el-button{
         width: 100%;
         height: 42px;
@@ -164,7 +279,7 @@
         margin-left: 22px;
         position:relative;
     }
-    .forget span{
+    .forget span, .other span{
         margin-left: 10px;
         position:relative;
     }
@@ -184,13 +299,20 @@
         background-size: cover;
 
     }
-    .forgetPassword::before{
-
+    .qrcode-img{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        width: 150px;
+        height: 150px;
+        box-shadow: 0px 0px 3px 3px #eee;
     }
-    .forgetUsername::before{
-
-    }
-    .registered::before{
-
+    .other{
+        position: absolute;
+        bottom: 32.5px;
+        right: 25px;
+        font-size: 12px;
+        color: #6c6c6c;
     }
 </style>
