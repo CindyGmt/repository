@@ -134,8 +134,8 @@
                         let params
                         if(this.ifShow){
                             params = {
-                                user:this.loginForm.user,
-                                passWord:this.loginForm.passWord,
+                                account:this.loginForm.user,
+                                password:this.loginForm.passWord,
                             }
                         }else{
                             params = {
@@ -144,7 +144,12 @@
                             }
                         }
                         login(params).then(res => {
-                            console.log(res)
+                            if(res){
+                                this.$store.commit('setToken','1')
+                                this.$router.push({path:'/home'})
+                            }else{
+                                this.$message('登录失败')
+                            }
                         })
                     } else {
                         console.log('error submit!!');

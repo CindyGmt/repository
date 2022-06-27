@@ -5,9 +5,9 @@ import store from '../store/index';
 import router from '../router/router';
 
 // 环境切换
-if(process.env === 'development'){
+if(process.env.NODE_ENV === 'development'){
     axios.defaults.baseURL = '/api'
-}else if(process.env === 'production'){
+}else if(process.env.NODE_ENV === 'production'){
     axios.defaults.baseURL = ''
 }
 

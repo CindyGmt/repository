@@ -18,4 +18,16 @@ const router = new VueRouter({
     routes, // `routes: routes` 的缩写
   })
 
+router.beforeEach((to, from, next) => {
+  if(!localStorage.getItem('token')){
+    if(to.path !== '/login'){
+       return next('/login')
+    }else{
+      next()
+    }
+  }else{
+    next()
+  }
+})
+
 export default router
