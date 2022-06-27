@@ -4,15 +4,23 @@
             <el-header>
                 <Header/>
             </el-header>
-            <el-container>
-                <el-aside width="200px">Aside</el-aside>
-                <el-main>Main</el-main>
+            <transition>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+            <el-container v-show='$route.path === "/home"'>
+                <el-aside width="200px"><Aside/></el-aside>
+                <el-main><Main/></el-main>
             </el-container>
+
         </el-container>
     </div>
 </template>
 <script>
 import Header from '../componets/Header.vue'
+import Aside from '../componets/Aside.vue'
+import Main from '../componets/Main.vue'
 
 export default {
     data(){
@@ -21,7 +29,9 @@ export default {
         }
     },
     components:{
-        Header
+        Header,
+        Aside,
+        Main
     }
 }
 </script>
