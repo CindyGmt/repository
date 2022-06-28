@@ -15,7 +15,7 @@ if(process.env.NODE_ENV === 'development'){
 axios.defaults.timeout = 6000
 
 // post请求头
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencode;charset=UTF-8';
+axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 // 请求拦截器
 axios.interceptors.request.use(
