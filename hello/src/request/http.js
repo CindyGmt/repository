@@ -8,7 +8,7 @@ import router from '../router/router';
 if(process.env.NODE_ENV === 'development'){
     axios.defaults.baseURL = '/api'
 }else if(process.env.NODE_ENV === 'production'){
-    axios.defaults.baseURL = ''
+    axios.defaults.baseURL = 'https://43.129.231.24:8081/'
 }
 
 // 请求超时时间

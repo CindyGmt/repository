@@ -1,5 +1,7 @@
 
 module.exports = {
+  publicPath:process.env.BASE_URL,
+  assetsDir:'assets',
   // 选项
   devServer: {
     open: true,

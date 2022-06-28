@@ -8,6 +8,7 @@ const Home = () => import(/* webpackChunkName: "home" */ '../pages/Home.vue')
 const Pages = () => import(/* webpackChunkName: "pages" */ '../pages/Pages.vue')
 const Process = () => import(/* webpackChunkName: "process" */ '../pages/Process.vue')
 const UserInfo = () => import(/* webpackChunkName: "userInfo" */ '../pages/UserInfo.vue')
+const NewPage = () => import(/* webpackChunkName: "newPage" */ '../componets/NewPage.vue')
 
 const routes = [
     {path:'/login', component:Login},
@@ -19,6 +20,7 @@ const routes = [
         {path:'/pages', component:Pages},
         {path:'/process', component:Process},
         {path:'/userInfo', component:UserInfo},
+        { path:'newPage', component:NewPage }
       ]
     },
 ]

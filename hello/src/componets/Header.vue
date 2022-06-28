@@ -15,6 +15,7 @@
     display: inline-block;
     width: 35px;
     height: 35px;
+    border: 1px solid #ccc;
     border-radius: 50%;
     box-shadow: 0 0 3px 3px #fff;
     background: url('../assets/image/home.png') center no-repeat;
@@ -23,6 +24,21 @@
     position:absolute;
     top:10px;
     left: 30px;
+    /* 动画 */
+    animation: myMove 3s infinite; //循环
+}
+@keyframes myMove {
+    0% {
+        box-shadow: 0 0 3px 1px #fff;
+    }
+
+    50% {
+        box-shadow: 0 0 5px 3px #fff;
+    }
+
+    100% {
+        box-shadow: 0 0 3px 1px #fff;
+    }
 }
 .el-icon-page-my,.el-icon-process-my,.el-icon-user-my{
     cursor: pointer;
