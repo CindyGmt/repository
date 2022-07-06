@@ -1,5 +1,6 @@
 <template>
     <div class="newPage" ref='newPage'>
+        <!-- div作为载体,is属性指定实际组件（is属性是关键） -->
         <div v-for="(item,i) in singlePage.elArr" :key="i" :is="item"></div>
     </div>
 </template>
