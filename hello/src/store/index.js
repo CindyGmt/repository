@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    singlePage:{}
+    singlePage:{
+      elArr:[]
+    }
   },
   mutations: {
     setToken(state,data) {
@@ -14,8 +16,13 @@ export default new Vuex.Store({
       localStorage.setItem('token',data)
     },
     setSinglePage(state,data) {
-      Object.assign(state.singlePage,data)
-      localStorage.setItem('singlePage',state.singlePage)
+      state.singlePage = {...state.singlePage,...data}
+      // Object.assign(state.singlePage,data)
+      localStorage.setItem('singlePage',JSON.stringify(state.singlePage))
     },
+    pushEl(state,data){
+      state.singlePage.elArr.push(data)
+      localStorage.setItem('singlePage',JSON.stringify(state.singlePage))
+    }
   }
 })

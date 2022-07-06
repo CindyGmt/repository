@@ -1,5 +1,6 @@
 <template>
     <div class="newPage" ref='newPage'>
+        <div v-for="(item,i) in singlePage.elArr" :key="i" :is="item"></div>
     </div>
 </template>
 <script>

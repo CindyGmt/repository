@@ -2,7 +2,7 @@
     <div class="asidePage">
         <el-button class="creat" icon="el-icon-plus" size="mini" @click="creatPage">创建页面</el-button>
         <ul class="componentList">
-            <li v-for='item in componentList' :key="item.name"><i :class="[item.icon,'item-icon']"></i></li>
+            <li v-for='item in componentList' :key="item.name" @click='creatEl(item.name)'><i :class="[item.icon,'item-icon']"></i></li>
         </ul>
         <el-dialog
             title="新页面信息"
@@ -93,6 +93,9 @@ export default {
                     return false;
                 }
             })
+        },
+        creatEl(el){
+            this.$store.commit('pushEl',el)
         }
     }
 }
