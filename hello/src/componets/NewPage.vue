@@ -18,9 +18,22 @@ export default {
     methods:{
 
     },
-    beforeCreate(){
+    created(){
+        let singlePage = localStorage.getItem('singlePage')
+        if(!this.singlePage.page_name && !singlePage.page_name){
+            this.$message({
+                message:'请先创建新页面',
+                duration:1500,
+                showClose:true
+            })
+            this.$router.push('/home')
+        }
+        
     },
-    }
+    beforeDestroy(){
+        debugger
+    },
+}
 
 </script>
 

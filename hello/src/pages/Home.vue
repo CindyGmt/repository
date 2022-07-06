@@ -13,6 +13,7 @@
                             </el-main>
                     </keep-alive>
                 </transition>
+                <ElAttr v-show="$route.path === '/home/newPage'"/>
             </el-container>
         </el-container>
     </div>
@@ -20,6 +21,7 @@
 <script>
 import Header from '../componets/Header.vue'
 import Aside from '../componets/Aside.vue'
+import ElAttr from '../componets/ElAttr.vue'
 
 export default {
     data(){
@@ -29,7 +31,8 @@ export default {
     },
     components:{
         Header,
-        Aside
+        Aside,
+        ElAttr
     }
 }
 </script>

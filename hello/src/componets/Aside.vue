@@ -17,6 +17,9 @@
                 <el-form-item label="英文名" prop="en_name">
                     <el-input v-model="page.en_name"></el-input>
                 </el-form-item>
+                <el-form-item label="页面名" prop="en_name">
+                    <el-input v-model="page.page_name"></el-input>
+                </el-form-item>
                 <el-form-item label="一级路由" prop="route">
                     <el-input v-model="page.route"></el-input>
                 </el-form-item>
@@ -43,13 +46,16 @@ export default {
             page:{},
             rules:{
                 cn_name:[
-                { required: true, message: '请输入中文名', trigger: 'blur' }
+                    { required: true, message: '请输入中文名', trigger: 'blur' }
                 ],
                 en_name:[
-                { required: true, message: '请输入英文名', trigger: 'blur' }
+                    { required: true, message: '请输入英文名', trigger: 'blur' }
+                ],
+                page_name:[
+                    { required: true, message: '请输入页面名', trigger: 'blur' }
                 ],
                 route:[
-                { required: true, message: '请输入路由', trigger: 'blur' }
+                    { required: true, message: '请输入路由', trigger: 'blur' }
                 ]
             }
         }
