@@ -1,5 +1,5 @@
 import axios from "axios";
-import Qs from "qs";
+// import Qs from "qs";
 import { Message } from 'element-ui';
 import store from '../store/index';
 import router from '../router/router';
@@ -107,7 +107,7 @@ export function get(url,params){
 
 export function post(url,params){
     return new Promise((resolve,reject) => {
-        axios.post(url,Qs.stringify(params))
+        axios.post(url,params)
         .then(res => {
             resolve(res.data)
         })

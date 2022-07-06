@@ -9,6 +9,7 @@ const Pages = () => import(/* webpackChunkName: "pages" */ '../pages/Pages.vue')
 const Process = () => import(/* webpackChunkName: "process" */ '../pages/Process.vue')
 const UserInfo = () => import(/* webpackChunkName: "userInfo" */ '../pages/UserInfo.vue')
 const NewPage = () => import(/* webpackChunkName: "newPage" */ '../componets/NewPage.vue')
+const Registration = () => import(/* webpackChunkName: "registration" */ '../pages/Registration.vue')
 
 const routes = [
     {path:'/login', component:Login},
@@ -23,6 +24,7 @@ const routes = [
         { path:'newPage', component:NewPage }
       ]
     },
+    {path:'/freeRegistration',component:Registration}
 ]
 
 const router = new VueRouter({
@@ -33,7 +35,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if(!localStorage.getItem('token')){
-    if(to.path !== '/login'){
+    if(to.path !== '/login' && to.path !== '/freeRegistration'){
        return next('/login')
     }else{
       next()

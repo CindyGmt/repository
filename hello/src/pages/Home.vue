@@ -5,7 +5,7 @@
                 <Header/>
             </el-header>
             <el-container >
-                <el-aside width="200px" v-show="$route.path.indexOf('/home') > -1"><Aside/></el-aside>
+                <el-aside width="100px" v-show="$route.path.indexOf('/home') > -1"><Aside/></el-aside>
                 <transition>
                     <keep-alive>     
                             <el-main>

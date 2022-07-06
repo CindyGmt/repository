@@ -5,12 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: ''
+    token: '',
+    singlePage:{}
   },
   mutations: {
-    setToken (state,data) {
+    setToken(state,data) {
       state.token = data
       localStorage.setItem('token',data)
-    }
+    },
+    setSinglePage(state,data) {
+      Object.assign(state.singlePage,data)
+      localStorage.setItem('singlePage',state.singlePage)
+    },
   }
 })

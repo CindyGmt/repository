@@ -1,6 +1,27 @@
 <template>
-    <div class="newPage"></div>
+    <div class="newPage" ref='newPage'>
+    </div>
 </template>
+<script>
+import { mapState } from 'vuex'
+export default {
+    data() {
+        return {
+            name:'1'
+        }
+    },
+    computed:{
+        ...mapState(['singlePage'])
+    },
+    methods:{
+
+    },
+    beforeCreate(){
+    },
+    }
+
+</script>
+
 
 <style lang="less" scoped>
 .newPage{

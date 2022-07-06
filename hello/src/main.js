@@ -3,11 +3,11 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueI18n from 'vue-i18n'
 import router from './router/router'
-import common from './utils/common'
+import utils from './utils/common'
 import App from './App.vue'
 import store from './store/index'
 
-Vue.prototype.common = common
+Vue.prototype.$utils = utils
 Vue.use(ElementUI)
 Vue.use(VueI18n)
 

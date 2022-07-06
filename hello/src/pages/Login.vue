@@ -43,7 +43,7 @@
             <div class="forget">
                 <span v-show="ifShow">忘记密码</span>
                 <span v-show="ifShow">忘记帐号名</span>
-                <span>免费注册</span>
+                <span @click='freeRegistration'>免费注册</span>
             </div>
         </div>
         <div v-show='!ifPc'>
@@ -156,6 +156,9 @@
                         return false;
                     }
                 });
+            },
+            freeRegistration(){
+                this.$router.push({path:'/freeRegistration'})
             }
         }
     }
@@ -283,10 +286,12 @@
     .otherMethods span{
         margin-left: 22px;
         position:relative;
+        cursor: pointer;
     }
     .forget span, .other span{
         margin-left: 10px;
         position:relative;
+        cursor: pointer;
     }
     .toWeb::before,.alipay::before{
         content: '';
