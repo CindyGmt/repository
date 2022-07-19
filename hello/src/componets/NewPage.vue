@@ -1,7 +1,9 @@
 <template>
     <div class="newPage" ref='newPage'>
         <!-- div作为载体,is属性指定实际组件（is属性是关键） -->
-        <div v-for="(item,i) in singlePage.elArr" :key="i" :is="item"></div>
+        <div v-for="(item,i) in singlePage.elArr" :key="i" @click="focusEl(item,i)" class="elBox">
+            <div :is="item.el"></div>
+        </div>
     </div>
 </template>
 <script>
@@ -16,7 +18,10 @@ export default {
         ...mapState(['singlePage'])
     },
     methods:{
-
+        focusEl(el,i){
+            debugger
+            this.$emit('setEl',el,i)
+        }
     },
     created(){
         let singlePage = localStorage.getItem('singlePage')
@@ -31,7 +36,7 @@ export default {
         
     },
     beforeDestroy(){
-        debugger
+        this.$store.commit('clearSinglePage')
     },
 }
 
@@ -43,5 +48,8 @@ export default {
     height: 100%;
     box-sizing: border-box;
     box-shadow: 0 0 3px 3px #eee;
+    .elBox{
+        display: inline-block;
+    }
 }
 </style>

@@ -9,6 +9,9 @@
                     <el-form-item label="英文名:" prop="en_name">
                         <el-input v-model="page.en_name"></el-input>
                     </el-form-item>
+                    <el-form-item label="英文名:" prop="en_name">
+                        <el-input v-model="page.page_name"></el-input>
+                    </el-form-item>
                     <el-form-item label="一级路由:" prop="route">
                         <el-input v-model="page.route"></el-input>
                     </el-form-item>
@@ -47,6 +50,7 @@
 
 <script>
 
+import { mapState } from 'vuex'
 export default {
     data() {
       return {
@@ -66,10 +70,29 @@ export default {
         ]
       }  
     },
+    computed:{
+        ...mapState(['singlePage'])
+    },
+    watch:{
+        singlePage(v){
+            this.page = JSON.parse(JSON.stringify(v))
+        }
+    },
     methods:{
         handleClick(tab, event){
             console.log(tab, event)
+        },
+        focusEl(el,i){
+            this.activeName = 'componentConfig'
+            console.log(el,i)
         }
+    },
+    created(){
+        debugger
+        this.$on('setEl',(el,i) => {
+            debugger
+            this.focusEl(el,i)
+        })
     }
 }
 </script>

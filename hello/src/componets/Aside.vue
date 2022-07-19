@@ -101,7 +101,7 @@ export default {
             })
         },
         creatEl(el){
-            this.$store.commit('pushEl',el)
+            this.$store.commit('pushEl',{el})
         }
     }
 }

@@ -23,6 +23,12 @@ export default new Vuex.Store({
     pushEl(state,data){
       state.singlePage.elArr.push(data)
       localStorage.setItem('singlePage',JSON.stringify(state.singlePage))
+    },
+    clearSinglePage(state){
+      state.singlePage = {
+        elArr:[]
+      }
+      localStorage.setItem('singlePage','')
     }
   }
 })
