@@ -6,8 +6,10 @@ import router from './router/router'
 import utils from './utils/common'
 import App from './App.vue'
 import store from './store/index'
+import bus from './utils/bus'
 
 Vue.prototype.$utils = utils
+Vue.prototype.$bus = bus
 Vue.use(ElementUI)
 Vue.use(VueI18n)
 

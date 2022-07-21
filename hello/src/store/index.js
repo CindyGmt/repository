@@ -24,6 +24,14 @@ export default new Vuex.Store({
       state.singlePage.elArr.push(data)
       localStorage.setItem('singlePage',JSON.stringify(state.singlePage))
     },
+    addElAttr(state,data){
+      let info = JSON.parse(JSON.stringify(data[0]))
+      let index = data[1]
+      let el_i = state.singlePage.elArr[index]
+      let newEl_i = JSON.parse(JSON.stringify({...el_i,...info}))
+      state.singlePage.elArr.splice(index,1,newEl_i )
+      localStorage.setItem('singlePage',JSON.stringify(state.singlePage))
+    },
     clearSinglePage(state){
       state.singlePage = {
         elArr:[]

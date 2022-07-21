@@ -18,22 +18,26 @@
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="组件配置" name="componentConfig">
-                <el-form ref="form" :model="btnForm" label-width="50px" v-show="type === 'el-button'" size="mini">
+                <el-form ref="form" :model="elForm" label-width="50px" size="mini">
                     <el-form-item label="尺寸:" class="label">
-                        <el-radio v-model="btnForm.size" label="medium">中</el-radio>
-                        <el-radio v-model="btnForm.size" label="small">小</el-radio>
-                        <el-radio v-model="btnForm.size" label="mini">加小</el-radio>
+                        <el-radio-group v-model="elForm.size" @change="changeElAttr('size')">
+                            <el-radio label="medium">中</el-radio>
+                            <el-radio label="small">小</el-radio>
+                            <el-radio label="mini">加小</el-radio>
+                        </el-radio-group>
                     </el-form-item>
                     <el-form-item label="类型:">
-                        <el-radio v-model="btnForm.type" label="primary">主要</el-radio>
-                        <el-radio v-model="btnForm.type" label="success">成功</el-radio>
-                        <el-radio v-model="btnForm.type" label="warning">警告</el-radio>
-                        <el-radio v-model="btnForm.type" label="danger">危险</el-radio>
-                        <el-radio v-model="btnForm.type" label="info">信息</el-radio>
-                        <el-radio v-model="btnForm.type" label="text">文本</el-radio>
+                        <el-radio-group v-model="elForm.type" @change="changeElAttr('type')">
+                            <el-radio label="primary">主要</el-radio>
+                            <el-radio label="success">成功</el-radio>
+                            <el-radio label="warning">警告</el-radio>
+                            <el-radio label="danger">危险</el-radio>
+                            <el-radio label="info">信息</el-radio>
+                            <el-radio label="text">文本</el-radio>
+                        </el-radio-group>
                     </el-form-item>
                     <el-form-item label="图标:">
-                        <el-select v-model="btnForm.icon" placeholder="请选择" :popper-append-to-body='false'>
+                        <el-select v-model="elForm.icon" placeholder="请选择" :popper-append-to-body='false' @change="changeElAttr('icon')">
                             <el-option
                             v-for="item in icons"
                             :key="item"
@@ -55,9 +59,8 @@ export default {
     data() {
       return {
         activeName:'pageInfo',
-        type:'el-button',
         page:{},
-        btnForm:{},
+        elForm:{},
         icons:[
             'el-icon-search',
             "el-icon-edit",
@@ -67,7 +70,8 @@ export default {
             "el-icon-delete",
             "el-icon-share",
             "el-icon-upload"
-        ]
+        ],
+        el_i:null
       }  
     },
     computed:{
@@ -83,14 +87,17 @@ export default {
             console.log(tab, event)
         },
         focusEl(el,i){
+            this.elForm = {}
             this.activeName = 'componentConfig'
-            console.log(el,i)
+            Object.assign(this.elForm,el)
+            this.el_i = i
+        },
+        changeElAttr(attr){
+            this.$store.commit('addElAttr',[{[attr]:this.elForm[attr]},this.el_i])
         }
     },
     created(){
-        debugger
-        this.$on('setEl',(el,i) => {
-            debugger
+        this.$bus.$on('setEl',(el,i) => {
             this.focusEl(el,i)
         })
     }
@@ -111,10 +118,14 @@ export default {
     /deep/.el-form-item--mini .el-form-item__label,/deep/.el-radio__label{
         font-size: 12px;
     }
-    .el-radio{
-        margin-right: 15px;
-        /deep/.el-radio__label{
-            padding-left: 5px;
+    .el-radio-group{
+        line-height: 28px;
+        .el-radio{
+            margin-right: 15px;
+            line-height: 28px;
+            /deep/.el-radio__label{
+                padding-left: 5px;
+            }
         }
     }
     .el-select--mini{

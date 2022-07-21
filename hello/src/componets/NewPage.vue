@@ -2,7 +2,7 @@
     <div class="newPage" ref='newPage'>
         <!-- div作为载体,is属性指定实际组件（is属性是关键） -->
         <div v-for="(item,i) in singlePage.elArr" :key="i" @click="focusEl(item,i)" class="elBox">
-            <div :is="item.el"></div>
+            <div :is="item.el" :size='item.size' :type='item.type' :icon='item.icon'></div>
         </div>
     </div>
 </template>
@@ -19,8 +19,7 @@ export default {
     },
     methods:{
         focusEl(el,i){
-            debugger
-            this.$emit('setEl',el,i)
+            this.$bus.$emit('setEl',el,i)
         }
     },
     created(){
@@ -33,7 +32,7 @@ export default {
             })
             this.$router.push('/home')
         }
-        
+
     },
     beforeDestroy(){
         this.$store.commit('clearSinglePage')
