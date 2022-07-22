@@ -1,9 +1,15 @@
 <template>
     <div class="asidePage">
         <el-button class="creat" icon="el-icon-plus" size="mini" @click="creatPage">创建页面</el-button>
-        <ul class="componentList">
+        <!-- <ul class="componentList">
             <li v-for='item in componentList' :key="item.name" @click='creatEl(item.name)'><i :class="[item.icon,'item-icon']"></i></li>
-        </ul>
+        </ul> -->
+        <el-tree :data="componentList">
+            <span class="custom-tree-node" slot-scope="{ data:item }">
+                <i :class="[item.icon,'item-icon']" v-if='!item.hideIcon'></i>
+                <span >{{ item.label }}</span>
+            </span>
+        </el-tree>
         <el-dialog
             title="新页面信息"
             :visible.sync="dialogVisible"
@@ -38,11 +44,33 @@ export default {
         return {
             dialogVisible:false,
             componentList:[
-                {name:'el-button',icon:'el-icon-btn-my'},
-                {name:'el-radio',icon:'el-icon-radio-my'},
-                {name:'el-checkbox',icon:'el-icon-checkbox-my'},
-                {name:'el-input',icon:'el-icon-input-my'},
+                {
+                    label:'元素',
+                    hideIcon:1,
+                    children:[
+                        {label:'按钮',name:'el-button',icon:'el-icon-btn-my'},
+                        {label:'单选',name:'el-radio',icon:'el-icon-radio-my'},
+                        {label:'复选',name:'el-checkbox',icon:'el-icon-checkbox-my'},
+                        {label:'输入',name:'el-input',icon:'el-icon-input-my'},
+                    ]
+                },
+                {
+                   label:'组件',
+                    hideIcon:1,
+                    children:[
+                    ] 
+                },
+                {
+                    label:'页面',
+                    hideIcon:1,
+                    children:[
+                    ] 
+                }
             ],
+            defaultProps: {
+                children: 'children',
+                label: 'label'
+            },
             page:{},
             rules:{
                 cn_name:[
@@ -102,6 +130,10 @@ export default {
         },
         creatEl(el){
             this.$store.commit('pushEl',{el})
+        },
+        handleNodeClick(data) {
+            debugger
+            console.log(data);
         }
     }
 }
@@ -120,6 +152,35 @@ export default {
         transform: translateX(-50%);
         padding: 7px;
     }
+    .custom-tree-node {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        padding-right: 8px;
+    }
+    .item-icon{
+        display: inline-block;
+        width: 25px;
+        height: 15px;
+    }
+    .el-icon-btn-my{
+                background: url('../assets/image/btn.png') center no-repeat;
+                background-size: contain;
+            }
+            .el-icon-radio-my{
+                background: url('../assets/image/radio.png') center no-repeat;
+                background-size: contain;
+            }
+            .el-icon-checkbox-my{
+                background: url('../assets/image/checkbox.png') center no-repeat;
+                background-size: contain;
+            }
+            .el-icon-input-my{
+                background: url('../assets/image/input.png') center no-repeat;
+                background-size: contain;
+            }
     .componentList{
         box-sizing: border-box;
         list-style: none;
@@ -131,23 +192,8 @@ export default {
             line-height: 40px;
             cursor: pointer;
             margin-bottom: 15px;
-            .item-icon{
-                display: inline-block;
-                width: 32px;
-                height: 32px;
-            }
-            .el-icon-btn-my{
-                background: url('../assets/image/btn.png') center no-repeat;
-            }
-            .el-icon-radio-my{
-                background: url('../assets/image/radio.png') center no-repeat;
-            }
-            .el-icon-checkbox-my{
-                background: url('../assets/image/checkbox.png') center no-repeat;
-            }
-            .el-icon-input-my{
-                background: url('../assets/image/input.png') center no-repeat;
-            }
+            
+            
         }
     }
     /deep/.infoDialog{
