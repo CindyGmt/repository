@@ -12,7 +12,6 @@ axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded;
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
-    debugger
     // 在发送请求之前做些什么
     let token = localStorage.getItem('token')
     token & (config.headers.Authorization = token)
@@ -89,36 +88,36 @@ const createService = baseURL => {
 }
 
 // 默认主要使用ip
-const request = createService(baseUrl('8081'))
+// const request = createService(baseUrl('8081'))
 // 统一登录平台使用
 const node = createService(baseUrl('3000'))
 
 // get方法
-export function get(url,params){
-    return new Promise((resolve,reject)=>{
-        request.get(url,{
-            params
-        })
-        .then(res => {
-            resolve(res.data)
-        })
-        .catch(err => {
-            reject(err.data)
-        })
-    })
-}
+// export function get(url,params){
+//     return new Promise((resolve,reject)=>{
+//         request.get(url,{
+//             params
+//         })
+//         .then(res => {
+//             resolve(res.data)
+//         })
+//         .catch(err => {
+//             reject(err.data)
+//         })
+//     })
+// }
 
-export function post(url,params){
-    return new Promise((resolve,reject) => {
-        request.post(url,params)
-        .then(res => {
-            resolve(res.data)
-        })
-        .catch(err => {
-            reject(err.data)
-        })
-    })
-}
+// export function post(url,params){
+//     return new Promise((resolve,reject) => {
+//         request.post(url,params)
+//         .then(res => {
+//             resolve(res.data)
+//         })
+//         .catch(err => {
+//             reject(err.data)
+//         })
+//     })
+// }
 
 // get方法
 export function nodeGet(url,params){

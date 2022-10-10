@@ -125,7 +125,13 @@ export default {
                 evaluation:'',
                 transaction:'',
                 afterSale:''
-            }
+            },
+            options:[
+                {
+                    value:'1',
+                    label:'1'
+                }
+            ]
         }
     }
 }

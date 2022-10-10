@@ -5,14 +5,14 @@ module.exports = defineConfig({
   devServer:{
     port: 8081,
     proxy:{
-      '/api': {
-        target: 'https://43.129.231.24:8081/',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite:{
-          '^/api':''
-        }
-      },
+      // '/api': {
+      //   target: 'https://43.129.231.24:8081/',
+      //   ws: true,
+      //   changeOrigin: true,
+      //   pathRewrite:{
+      //     '^/api':''
+      //   }
+      // },
       '/node':{
         target: 'http://localhost:3000/',
         ws: true,
