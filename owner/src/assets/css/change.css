@@ -1,0 +1,14 @@
+
+.dropdown-item{
+    color: #999;
+    font-size: 12px;
+    line-height: 26px;
+    padding: 0 10px;
+}
+.dropdown-item:hover{
+    color: #FF0036!important;
+    background: #fff!important;
+}
+.el-popover{
+    width: auto!important;
+}
