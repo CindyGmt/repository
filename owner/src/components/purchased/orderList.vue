@@ -10,7 +10,7 @@
                 <el-input placeholder="输入商品标题或订单号进行搜索" v-model="search.input">
                     <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
-                <p class="showMore">{{'更多'}}筛选条件<i></i></p>
+                <p class="showMore" @click="ifShow = !ifShow">{{'更多'}}筛选条件<i></i></p>
             </div>
             <el-form ref="form" :model="search" label-width="80px" class="bottom" v-show="ifShow">
                 <el-row :gutter="20">
