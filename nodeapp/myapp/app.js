@@ -19,8 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(cors({
-  origin:['http://localhost:8081','http://127.0.0.1:8081'],
+  origin:['http://43.129.231.24:8081'],
   methods:['GET','POST'],
   allowedHeaders:['Content-Type','Authorization']
 }))

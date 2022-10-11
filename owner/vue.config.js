@@ -14,7 +14,7 @@ module.exports = defineConfig({
       //   }
       // },
       '/node':{
-        target: 'http://localhost:3000/',
+        target: 'http://43.129.231.24:3000/',
         ws: true,
         changeOrigin: true,
         pathRewrite:{

@@ -4,7 +4,7 @@ export const baseUrl = (port) => {
     if(process.env.NODE_ENV === 'development'){
         url = port === '8081' ? '/api' : '/node'
     }else if(process.env.NODE_ENV === 'production'){
-        url = port === '8081' ? 'https://43.129.231.24:8081/' : 'http://localhost:3000/'
+        url = port === '8081' ? 'https://43.129.231.24:8081/' : 'http://43.129.231.24:3000/'
     }
     return url
   }
