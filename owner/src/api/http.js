@@ -90,7 +90,7 @@ const createService = baseURL => {
 // 默认主要使用ip
 // const request = createService(baseUrl('8081'))
 // 统一登录平台使用
-const node = createService(baseUrl('3000'))
+const node = createService(baseUrl('8082'))
 
 // get方法
 // export function get(url,params){
