@@ -2,7 +2,7 @@
     <div class="homePage">
         <el-container>
             <el-aside width="150px">
-                <el-menu  @select="handleSelect">
+                <el-menu  @select="handleSelect" default-active="menuIndex">
                 <el-menu-item index="1">
                     <i class="el-icon-menu"></i>
                     <span slot="title">多门店功能</span>
@@ -19,6 +19,7 @@
     export default {
       data() {
         return {
+            menuIndex:null,
             list: [{
                 label: '一级 1',
                 url:'/storeManage'
@@ -31,6 +32,7 @@
       },
       methods: {
         handleSelect(i) {
+            this.menuIndex = i
             this.$router.push({path:this.list[i - 1].url})
         }
       }
