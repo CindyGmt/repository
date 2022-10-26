@@ -7,12 +7,14 @@ const Login = () => import(/* webpackChunkName: "login" */ '../pages/login.vue')
 const Home = () => import(/* webpackChunkName: "login" */ '../pages/home.vue')
 const Register = () => import(/* webpackChunkName: "login" */ '../pages/register.vue')
 const Purchased = () => import(/* webpackChunkName: "login" */ '../pages/purchased.vue')
+const Upload0 = () => import(/* webpackChunkName: "login" */ '../pages/upload0.vue')
 const routes = [
     {path:'/login', component:Login},
     {path:'/', component:Home},
     {path:'/home', component:Home},
     {path:'/register', component:Register},
     {path:'/purchased', component:Purchased},
+    {path:'/upload0', component:Upload0},
 ]
 
 const router = new VueRouter({

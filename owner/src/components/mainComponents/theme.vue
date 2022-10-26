@@ -3,7 +3,7 @@
         <div class="theme-nav">
             <h2>主题市场</h2>
             <div class="quick-theme">
-                <a v-for="(item,i) in quickLink" :key='i' :class="{'img-box':item.img}">
+                <a v-for="(item,i) in quickLink" :key='i' :class="{'img-box':item.img}" @click="toPage(i)">
                     <img v-if='item.img' :src="item.img" alt="">
                     {{item.name}}
                 </a>
@@ -118,7 +118,11 @@ export default {
             bottomList
         }
     },
-
+    methods:{
+        toPage(i){
+            this.$router.push({path:`/upload${i}`})
+        }
+    }
 }
 </script>
 <style lang="less" scoped>
